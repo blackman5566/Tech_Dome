@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hybrid App Demo</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        button { padding: 10px 20px; font-size: 18px; border-radius: 8px; }
+        #result { margin-top: 20px; font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+<h1>Hybrid App Demo (Android)</h1>
+<p>按下按鈕後會呼叫 Android 原生程式開相機</p>
+<button onclick="takePhoto()">📷 拍照</button>
+<button onclick="closePage()">關閉頁面</button>
+<div id="result"></div>
+
+<script>
+    // 呼叫 Android 原生端
+    function takePhoto() {
+      if (window.Android && Android.takePhoto) {
+        Android.takePhoto();  // 直接呼叫 Android 原生方法
+      } else {
+        alert("不在 Android WebView 環境內");
+      }
+    }
+
+    //關閉頁面
+    function closePage() {
+      if (window.Android && Android.closePage) {
+        Android.closePage();  // 直接呼叫 Android 原生方法
+      } else {
+        alert("不在 Android WebView 環境內");
+      }
+    }
+
+    // 這個方法會被 Android 原生端呼叫
+    function onPhotoTaken(path) {
+      document.getElementById("result").innerText = "拍照成功，檔案：" + path;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hybrid App Demo</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; text-align: center; padding: 50px; }
+    button { padding: 10px 20px; font-size: 18px; border-radius: 8px; }
+    #result { margin-top: 20px; font-weight: bold; color: green; }
+  </style>
+</head>
+<body>
+<h1>Hybrid App Demo</h1>
+<p>按下按鈕後會呼叫 iOS 原生程式開相機</p>
+<button onclick="takePhoto()">📷 拍照</button>
+<button onclick="closePage()">關閉頁面</button>
+<div id="result"></div>
+
+<script>
+  // 呼叫 iOS 原生端
+  function takePhoto() {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.camera) {
+      window.webkit.messageHandlers.camera.postMessage({ action: "takePhoto" });
+    } else {
+      alert("不在 iOS WebView 環境內");
+    }
+  }
+
+function closePage() {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.camera) {
+      window.webkit.messageHandlers.camera.postMessage({ action: "closePage" });
+    } else {
+      alert("不在 iOS WebView 環境內");
+    }
+  }
+
+  // 這個方法會被 iOS 原生呼叫
+  function onPhotoTaken(path) {
+    document.getElementById("result").innerText = "拍照成功，檔案：" + path;
+  }
+</script>
+</body>
+</html>
+

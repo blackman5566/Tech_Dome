@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <title>Hybrid App Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 64px 16px 24px; /* 上面留空避免被 ActionBar 遮住 */
+        }
+        h1 { margin: 0 0 12px; font-size: 26px; }
+        p { margin: 0 0 20px; color: #333; }
+        button {
+          padding: 10px 20px;
+          font-size: 18px;
+          border-radius: 8px;
+          border: 1px solid #bbb;
+          background: #f7f7f7;
+          cursor: pointer;
+          transition: transform .05s ease;
+        }
+        button:active { transform: scale(0.97); }
+        button + button { margin-left: 12px; }
+        #result {
+          margin-top: 22px;
+          font-weight: bold;
+          color: green;
+          word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<h1>Hybrid App Demo</h1>
+<p>按下按鈕後會呼叫原生程式開相機</p>
+
+<button onclick="takePhoto()">📷 拍照</button>
+<button onclick="closePage()">關閉頁面</button>
+
+<div id="result"></div>
+
+<script>
+    function inFlutter() { return !!(window.flutter_inappwebview && typeof window.flutter_inappwebview.callHandler === 'function'); }
+
+    function takePhoto() {
+      if (inFlutter()) {
+        window.flutter_inappwebview.callHandler('bridge', { action: 'takePhoto' });
+      }else{
+      alert("不在 WebView 環境內");
+      }
+    }
+
+    // ✕ 關閉頁面
+    function closePage() {
+      if (inFlutter()) {
+        window.flutter_inappwebview.callHandler('bridge', { action: 'closePage' });
+      }else{
+      alert("不在 WebView 環境內");
+      }
+    }
+
+    // ✅ 原生回呼 (Android/iOS/Flutter 呼叫這個函式)
+    function onPhotoTaken(path) {
+      document.getElementById("result").innerText = "拍照成功，檔案：" + path;
+    }
+</script>
+</body>
+</html>
