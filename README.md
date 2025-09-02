@@ -1,16 +1,15 @@
-# tech_demo
+# Tech_Dome — Flutter × InAppWebView × 原生互動 Demo
 
-A new Flutter project.
+這個專案用最小範例示範三件事：
 
-## Getting Started
+1. **Flutter 頁面**透過 [`flutter_inappwebview`](https://pub.dev/packages/flutter_inappwebview) 和 **WebView (JavaScript)** 雙向溝通  
+2. **iOS 原生頁面**（WKWebView）與 **WebView (JavaScript)** 雙向溝通  
+3. **Android 原生頁面**（WebView）與 **WebView (JavaScript)** 雙向溝通  
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 專案執行
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
